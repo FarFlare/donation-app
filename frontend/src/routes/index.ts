@@ -3,11 +3,11 @@ import DonateViaLink from '../pages/donate-via-link/index';
 
 export const routes = [
   {
-    path: '/:link',
+    path: '/donation-app/:link',
     component: DonateViaLink,
   },
   {
-    path: '/',
+    path: '/donation-app',
     component: MainPage,
   },
   
