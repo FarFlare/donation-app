@@ -6,6 +6,7 @@ contract Distributor {
     address private _oracle;  // Should be linked to the off-chain backend account
     uint private _key = 0;
     mapping(uint => address) _donations;  // Link id => owner
+    mapping(address => uint) _key_by_address;  // Link id => owner
     mapping(string => mapping(address => uint)) _unclaimed_pools;  // username => token => value
     mapping(string => address) _pool_to_address;  // username => owner
     mapping(address => string) _address_to_pool;  // username => owner
@@ -27,21 +28,26 @@ contract Distributor {
     }
 
     function newLink(address donate_to_) public returns (uint){  // Generating a new id for the donation link
+        assert(_key_by_address[donate_to_] == 0);
         _key += 1;
         _donations[_key] = donate_to_;
+        _key_by_address[donate_to_] = _key;
         return _key;
+    }
+
+    function getLink(address link_owner_) public view returns (uint){  // Generating a new id for the donation link
+        assert(_key_by_address[link_owner_] != 0);
+        return _key_by_address[link_owner_];
     }
 
     function donateErc20(uint key_, address token_, uint value_) public {  // Allowing users to donate
         require(key_ <= _key);
-        _getAllowance(token_, value_);
         ERC20 donation = ERC20(token_);
         donation.transferFrom(msg.sender, _donations[key_], value_);  // Include commissions?
     }
 
     function donateToPoolErc20(string memory network_user_, address token_, uint value_) public {  // Donate to unregistered users
         // Format on network_user: "twitter:k0rean_rand0m"
-        _getAllowance(token_, value_);
         ERC20 donation = ERC20(token_);
         if (_pool_to_address[network_user_] == address(0)) {
             donation.transferFrom(msg.sender, address(this), value_);
@@ -69,13 +75,6 @@ contract Distributor {
             return _unclaimed_pools[_address_to_pool[msg.sender]][token_];
         } else {
             return 0;
-        }
-    }
-
-    function _getAllowance(address token_, uint value_) private {
-        ERC20 donation = ERC20(token_);
-        if (donation.allowance(address(this), msg.sender) < value_){
-            donation.increaseAllowance(msg.sender, value_);
         }
     }
 
