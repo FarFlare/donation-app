@@ -4,13 +4,14 @@ import s from './Button.module.css';
 
 export interface Props {
   children: ReactNode;
+  onClick?: () => void;
 }
 
-const Button = ({ children }: Props): ReactElement => {
+const Button = ({ children, onClick }: Props): ReactElement => {
   return (
-    <div className={s.root}>
+    <button className={s.root} onClick={onClick}>
       {children}
-    </div>
+    </button>
   )
 }
 

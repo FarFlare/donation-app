@@ -1,21 +1,19 @@
 import React, { useState } from "react";
-import cs from "classnames";
+
+import { useLocation } from "react-router-dom";
 
 import Layout from "../../components/Layout";
 import Input from "../../components/Input";
 
 import s from "./DonateLink.module.css";
 import link from "../../assets/images/link.svg";
-import polygon from "../../assets/images/Polygon.svg";
-import vector from "../../assets/images/Vector.svg";
-import check from "../../assets/images/check-icon.svg";
-import copy from "../../assets/images/copy.svg";
 import arrow from "../../assets/images/arrow.svg";
-import loader from "../../assets/images/loader.svg";
 import eth from "../../assets/images/eth.svg";
+
 
 const DonateViaLink = () => {
   const [address, setAddress] = useState("");
+  const location = useLocation();
 
   return (
     <Layout>
@@ -29,7 +27,7 @@ const DonateViaLink = () => {
             <p className={s.title}>link</p>
           </div>
         </div>
-        <p className={s.link_orange}>donank.io/mrs-miller/39859</p>
+        <p className={s.link_orange}>{`donunk.io${location.pathname}`}</p>
         <div className={s.form_item}>
           <div className={s.input_label_container}>
             <p className={s.input_label}>Enter your wallet address</p>

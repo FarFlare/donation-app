@@ -5,6 +5,8 @@ import Layout from "../../components/Layout";
 import Input from "../../components/Input";
 import Footer from "../../components/Footer";
 
+import chainStore from '../../stores/chainStore';
+
 import s from "./Main.module.css";
 import link from "../../assets/images/link.svg";
 import polygon from "../../assets/images/Polygon.svg";
@@ -18,6 +20,29 @@ const MainPage = () => {
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
   const [donationLink, setDonationLink] = useState("");
+
+  const onSubmit = async () => {
+    try {
+      setLoading(true);
+      const hash = await chainStore.distributorContract.methods.newLink(address).send({
+        from: chainStore.address,
+      });
+      console.log(hash, 'hash')
+      await window.web3.eth.getTransaction(
+        hash.transactionHash,
+        async (error, trans) => {
+          const link = await chainStore.distributorContract.methods.getLink(address).call();
+          setDonationLink(link);
+          setLoading(false);
+        }
+      );
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      alert(error.message);
+    }
+    
+  }
 
   return (
     <Layout>
@@ -52,7 +77,7 @@ const MainPage = () => {
               onChange={(e) => setAddress(e.target.value)}
               className={s.input}
             />
-            <button className={s.input_button}>
+            <button className={s.input_button} onClick={onSubmit}>
               <img
                 src={loading ? loader : donationLink ? check : arrow}
                 alt="check"
