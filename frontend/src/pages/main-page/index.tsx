@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import cs from "classnames";
+import { observer } from "mobx-react-lite";
 
 import Layout from "../../components/Layout";
 import Input from "../../components/Input";
@@ -16,7 +17,7 @@ import copy from "../../assets/images/copy.svg";
 import arrow from "../../assets/images/arrow.svg";
 import loader from "../../assets/images/loader.svg";
 
-const MainPage = () => {
+const MainPage = observer(() => {
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
   const [donationLink, setDonationLink] = useState("");
@@ -105,6 +106,6 @@ const MainPage = () => {
       <Footer />
     </Layout>
   );
-};
+});
 
 export default MainPage;

@@ -2,8 +2,10 @@ import { makeAutoObservable } from "mobx";
 import Web3 from "web3";
 
 import Distributor from "../../../../onchain/build/contracts/Distributor.json";
+import DonateToken from "../../../../onchain/build/contracts/DonateToken.json";
 
 const CONTRACT_ADDRESS = "0x91e9D25135fa1E414B4c49Ab89f9d823975EfF67";
+const TOKEN_ADDRESS = "0x082AD51D87ccA280582E036D837D7677067b62a7";
 
 class ChainStore {
   constructor() {
@@ -12,6 +14,7 @@ class ChainStore {
 
   address = "";
   distributorContract!: any;
+  tokenContract!: any;
   connected = false;
   web3Loading = true;
 
@@ -21,13 +24,11 @@ class ChainStore {
       if (window.ethereum) {
         window.web3 = new Web3(window.ethereum);
         await window.ethereum.enable();
-        this.connected = true;
       } else if (window.web3) {
         window.web3 = new Web3(window.web3.currentProvider);
-        this.connected = true;
-      } else {
-        
       }
+      this.connected = true;
+      this.web3Loading = false;
     } catch (error) {
       this.web3Loading = false;
       throw error;
@@ -41,12 +42,17 @@ class ChainStore {
 
     this.address = accounts[0];
 
-    const abi = Distributor.abi;
-    // @ts-ignore
-    if (abi) {
+    const distributorAbi = Distributor.abi;
+    const tokenAbi = DonateToken.abi;
+    if (distributorAbi) {
       // @ts-ignore
-      const distributorContract = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
+      const distributorContract = new web3.eth.Contract(distributorAbi, CONTRACT_ADDRESS);
       this.distributorContract = distributorContract;
+    }
+    if (tokenAbi) {
+      // @ts-ignore
+      const tokenContract = new web3.eth.Contract(tokenAbi, TOKEN_ADDRESS);
+      this.tokenContract = tokenContract;
     }
   };
 }

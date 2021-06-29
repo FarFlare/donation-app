@@ -135,9 +135,73 @@
   color: #fff;
 }
 
+.succes_text {
+  margin-botom: 90px;
+  font-size: 36px;
+  font-weight: 400;
+  font-family: 'Averta Demo PE';
+  color: #FF9149;
+}
+
 @media screen and (max-width: 980px) {
   .form_item {
     flex-direction: column;
     align-items: start;
+    justify-content: flex-start;
+  }
+  .input_label_container {
+    margin-right: 0;
+    width: 100%;
+  }
+  .input {
+    max-width: none;
+  }
+  .input_group {
+    width: 100%;
+  }
+  .title_container {
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .title {
+    font-size: 50px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .title {
+    font-size: 32px;
+    line-height: 60px;
+  }
+  .icon_container {
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .title_container {
+    margin-bottom: 30px;
+  }
+  .root {
+    padding-top: 30px;
+  }
+  .input_description {
+    color: #FF9149;
+    white-space: nowrap;
+    margin-bottom: 18px;
+  }
+  .input_label {
+    color: #FF9149;
+  }
+  .form_item {
+    width: auto;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .root {
+    padding-top: 0;
   }
 }

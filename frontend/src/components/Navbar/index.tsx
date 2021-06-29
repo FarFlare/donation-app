@@ -11,8 +11,11 @@ import { observer } from "mobx-react-lite";
 const Navbar = observer(() => {
   const onConnectClick = async () => {
     try {
-      await chainStore.loadWeb3();
-      await chainStore.loadBlockChain();
+      const { loadWeb3, loadBlockChain, connected } = chainStore;
+      if (!connected) {
+        await loadWeb3();
+        await loadBlockChain();
+      }
     } catch (error) {}
   };
 
@@ -26,7 +29,13 @@ const Navbar = observer(() => {
         <p className={s.link}>FAQ</p>
         <p className={s.link}>Donate to a star</p>
         <Button onClick={onConnectClick}>
-          {chainStore.web3Loading ? <img src={loader} alt='loader' /> : (chainStore.connected ? "Connected" : "Connect wallet")}
+          {chainStore.web3Loading ? (
+            <img src={loader} alt="loader" />
+          ) : chainStore.connected ? (
+            "Connected"
+          ) : (
+            "Connect wallet"
+          )}
         </Button>
       </div>
     </nav>
