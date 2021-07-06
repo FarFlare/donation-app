@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Layout from "../../components/Layout";
 import Input from "../../components/Input";
@@ -9,31 +9,36 @@ import Footer from "../../components/Footer";
 
 import chainStore from '../../stores/chainStore';
 
-import s from "./DonateLink.module.css";
-import link from "../../assets/images/link.svg";
+import s from "./DonateCeleb.module.css";
+import star from "../../assets/images/star.svg";
+import twitter from "../../assets/images/twitter.svg";
 import arrow from "../../assets/images/arrow.svg";
-import eth from "../../assets/images/eth.svg";
 import loader from "../../assets/images/loader.svg";
 
-const DonateViaLink = observer(() => {
+const DonateToCeleb = observer(() => {
   const [sum, setSum] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [nicknameSuccess, setNicknameSuccess] = useState(false);
+  const [nicknameError, setNicknameError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const { pathname } = useLocation();
   const { push } = useHistory();
+
+  const onNickNameSubmit = () => {
+    if (nickname) setNicknameSuccess(true);
+  };
 
   const onDonateClick = async () => {
     try {
-      const intSum = +sum
+      const intSum = +sum;
       if (intSum > 0) {
         const { distributorContract, tokenContract, address } = chainStore;
         setLoading(true);
         const allowance = await tokenContract.methods.allowance(address, distributorContract._address).call();
+        console.log(allowance, 'allowance');
+        console.log(intSum, 'sum')
         if (intSum <= allowance) {
-          console.log(+pathname.split('/')[3], 'id');
-          console.log(tokenContract._address, 'addr');
-          console.log(intSum, 'sum')
-          const hash = await distributorContract.methods.donateErc20(+pathname.split('/')[3], tokenContract._address, intSum).send({ from: address })
+          const hash = await distributorContract.methods.donateToPoolErc20(`twitter:${nickname}`, tokenContract._address, intSum).send({ from: address })
           await window.web3.eth.getTransaction(
             hash.transactionHash,
             async (error, trans) => {
@@ -60,18 +65,26 @@ const DonateViaLink = observer(() => {
   return (
     <Layout>
       <div className={s.root}>
-        <div className={s.title_container}>
+      <div className={s.title_container}>
           <div className={s.row}>
-            <p className={s.title}>Donate via the</p>
+            <p className={s.title}>Donate to a</p>
             <div className={s.icon_container}>
-              <img src={link} alt="link-logo" className={s.icon}/>
+              <img src={star} alt="star-logo" className={s.link_icon} />
             </div>
-            <p className={s.title}>link</p>
+            <p className={s.title}>celebrity</p>
           </div>
+          {!nicknameSuccess && !nicknameError && <div className={s.row}>
+            <p className={s.title}>using only</p>
+            <div className={s.polygon_icon_container}>
+              <img src={twitter} alt="twitter" className={s.polygon_icon} />
+            </div>
+            <p className={s.title}>nickname</p>
+          </div>}
         </div>
-        <p className={s.link_orange}>{`donunk.io${pathname}`}</p>
-        {!chainStore.connected && <Button>Connect wallet</Button>}
-        {chainStore.connected && !success && <div className={s.form_item}>
+        {nicknameSuccess && <p className={s.link_orange}>{nickname}</p>}
+        {nicknameError && <p className={s.link_orange}>Nickname is wrong. Please try again</p>}
+        {nicknameSuccess && !chainStore.connected && <Button>Connect wallet</Button>}
+        {nicknameSuccess && !success && <div className={s.form_item}>
           <div className={s.input_label_container}>
             <p className={s.input_label}>Enter the number of coins</p>
             <p className={s.input_description}>
@@ -96,6 +109,25 @@ const DonateViaLink = observer(() => {
             </button>
           </div>
         </div>}
+        {chainStore.connected && !nicknameSuccess && <div className={s.form_item}>
+          <div className={s.input_label_container}>
+            <p className={s.input_label}>Enter Twitter nickname of celebrity</p>
+            <p className={s.input_description}>
+              to whom you want to donate money
+            </p>
+          </div>
+          <div className={s.input_group}>
+            <Input
+              name="nickname"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              className={s.input}
+            />
+            <button className={s.input_button} onClick={onNickNameSubmit}>
+              <img src={loading ? loader : arrow} alt="arrow" />
+            </button>
+          </div>
+        </div>}
         {
           success && <>
             <p className={s.succes_text}>{`You have successfully donated ${sum} tokens`}</p>
@@ -108,4 +140,4 @@ const DonateViaLink = observer(() => {
   );
 });
 
-export default DonateViaLink;
+export default DonateToCeleb;
