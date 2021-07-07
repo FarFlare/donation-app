@@ -30,15 +30,15 @@ const DonateToCeleb = observer(() => {
 
   const onDonateClick = async () => {
     try {
-      const intSum = +sum;
-      if (intSum > 0) {
+      const wei = window.web3.utils.toWei(sum, 'ether');
+      if (wei > '0') {
         const { distributorContract, tokenContract, address } = chainStore;
         setLoading(true);
         const allowance = await tokenContract.methods.allowance(address, distributorContract._address).call();
         console.log(allowance, 'allowance');
-        console.log(intSum, 'sum')
-        if (intSum <= allowance) {
-          const hash = await distributorContract.methods.donateToPoolErc20(`twitter:${nickname}`, tokenContract._address, intSum).send({ from: address })
+        console.log(wei, 'sum')
+        if (wei <= allowance) {
+          const hash = await distributorContract.methods.donateToPoolErc20(`twitter:${nickname}`, tokenContract._address, wei).send({ from: address });
           await window.web3.eth.getTransaction(
             hash.transactionHash,
             async (error, trans) => {
@@ -47,7 +47,7 @@ const DonateToCeleb = observer(() => {
             }
           );
         } else {
-          const hash = await tokenContract.methods.increaseAllowance(distributorContract._address, intSum).send({ from: address });
+          const hash = await tokenContract.methods.increaseAllowance(distributorContract._address, wei).send({ from: address });
           await window.web3.eth.getTransaction(
             hash.transactionHash,
             async (error, trans) => {

@@ -24,16 +24,16 @@ const DonateViaLink = observer(() => {
 
   const onDonateClick = async () => {
     try {
-      const intSum = +sum
-      if (intSum > 0) {
+      const wei = window.web3.utils.toWei(sum, 'ether');
+      if (wei > '0') {
         const { distributorContract, tokenContract, address } = chainStore;
         setLoading(true);
         const allowance = await tokenContract.methods.allowance(address, distributorContract._address).call();
-        if (intSum <= allowance) {
+        if (wei <= allowance) {
           console.log(+pathname.split('/')[3], 'id');
           console.log(tokenContract._address, 'addr');
-          console.log(intSum, 'sum')
-          const hash = await distributorContract.methods.donateErc20(+pathname.split('/')[3], tokenContract._address, intSum).send({ from: address })
+          console.log(wei, 'sum')
+          const hash = await distributorContract.methods.donateErc20(+pathname.split('/')[3], tokenContract._address, wei).send({ from: address })
           await window.web3.eth.getTransaction(
             hash.transactionHash,
             async (error, trans) => {
@@ -42,7 +42,7 @@ const DonateViaLink = observer(() => {
             }
           );
         } else {
-          const hash = await tokenContract.methods.increaseAllowance(distributorContract._address, intSum).send({ from: address });
+          const hash = await tokenContract.methods.increaseAllowance(distributorContract._address, wei).send({ from: address });
           await window.web3.eth.getTransaction(
             hash.transactionHash,
             async (error, trans) => {
