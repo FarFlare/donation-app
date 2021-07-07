@@ -73,7 +73,7 @@ const DonateViaLink = observer(() => {
         {!chainStore.connected && <Button>Connect wallet</Button>}
         {chainStore.connected && !success && <div className={s.form_item}>
           <div className={s.input_label_container}>
-            <p className={s.input_label}>Enter the number of coins</p>
+            <p className={s.input_label}>Enter the number of miMATIC</p>
             <p className={s.input_description}>
               you want to donate using the link above
             </p>

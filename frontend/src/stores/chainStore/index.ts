@@ -5,7 +5,7 @@ import Distributor from "../../../../onchain/build/contracts/Distributor.json";
 import DonateToken from "../../../../onchain/build/contracts/DonateToken.json";
 
 const CONTRACT_ADDRESS = "0x91e9D25135fa1E414B4c49Ab89f9d823975EfF67";
-const TOKEN_ADDRESS = "0x082AD51D87ccA280582E036D837D7677067b62a7";
+const TOKEN_ADDRESS = "0xa3fa99a148fa48d14ed51d610c367c61876997f1";
 
 class ChainStore {
   constructor() {

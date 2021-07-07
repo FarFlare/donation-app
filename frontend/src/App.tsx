@@ -25,7 +25,7 @@ const App = () => {
     <Router>
       <Switch>
         {routes.map(({ path, component }) => (
-          <Route path={path} component={component} />
+          <Route path={path} component={component} exact />
         ))}
         <Redirect to="/" />
       </Switch>

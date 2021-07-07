@@ -4,15 +4,15 @@ import DonateToCeleb from '../pages/donate-celeb';
 
 export const routes = [
   {
-    path: '/donation-app/donate/:link',
+    path: '/donate/:link',
     component: DonateViaLink,
   },
   {
-    path: '/donation-app/celeb',
+    path: '/celeb',
     component: DonateToCeleb,
   },
   {
-    path: '/donation-app',
+    path: '/',
     component: MainPage,
   },
   
