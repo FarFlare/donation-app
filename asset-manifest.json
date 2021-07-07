@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/donation-app/static/css/main.f5f4673e.chunk.css",
-    "main.js": "/donation-app/static/js/main.0934163e.chunk.js",
-    "main.js.map": "/donation-app/static/js/main.0934163e.chunk.js.map",
-    "runtime-main.js": "/donation-app/static/js/runtime-main.95347318.js",
-    "runtime-main.js.map": "/donation-app/static/js/runtime-main.95347318.js.map",
-    "static/js/2.45c88053.chunk.js": "/donation-app/static/js/2.45c88053.chunk.js",
-    "static/js/2.45c88053.chunk.js.map": "/donation-app/static/js/2.45c88053.chunk.js.map",
-    "static/js/3.eaddce39.chunk.js": "/donation-app/static/js/3.eaddce39.chunk.js",
-    "static/js/3.eaddce39.chunk.js.map": "/donation-app/static/js/3.eaddce39.chunk.js.map",
+    "main.css": "/donation-app/static/css/main.159041f7.chunk.css",
+    "main.js": "/donation-app/static/js/main.d0a6974d.chunk.js",
+    "main.js.map": "/donation-app/static/js/main.d0a6974d.chunk.js.map",
+    "runtime-main.js": "/donation-app/static/js/runtime-main.e48a0c11.js",
+    "runtime-main.js.map": "/donation-app/static/js/runtime-main.e48a0c11.js.map",
+    "static/js/2.d90ac4d5.chunk.js": "/donation-app/static/js/2.d90ac4d5.chunk.js",
+    "static/js/2.d90ac4d5.chunk.js.map": "/donation-app/static/js/2.d90ac4d5.chunk.js.map",
+    "static/js/3.90579160.chunk.js": "/donation-app/static/js/3.90579160.chunk.js",
+    "static/js/3.90579160.chunk.js.map": "/donation-app/static/js/3.90579160.chunk.js.map",
     "index.html": "/donation-app/index.html",
-    "static/css/main.f5f4673e.chunk.css.map": "/donation-app/static/css/main.f5f4673e.chunk.css.map",
-    "static/js/2.45c88053.chunk.js.LICENSE.txt": "/donation-app/static/js/2.45c88053.chunk.js.LICENSE.txt",
+    "static/css/main.159041f7.chunk.css.map": "/donation-app/static/css/main.159041f7.chunk.css.map",
+    "static/js/2.d90ac4d5.chunk.js.LICENSE.txt": "/donation-app/static/js/2.d90ac4d5.chunk.js.LICENSE.txt",
     "static/media/index.css": "/donation-app/static/media/AvertaDemoPE-Regular.c8b0026c.woff2",
     "static/media/Layout.module.css": "/donation-app/static/media/Frame.a9658cc2.png",
     "static/media/Polygon.2e7d246d.svg": "/donation-app/static/media/Polygon.2e7d246d.svg",
@@ -21,12 +21,14 @@
     "static/media/link.eb8c9cff.svg": "/donation-app/static/media/link.eb8c9cff.svg",
     "static/media/loader-white.c01a1e5a.svg": "/donation-app/static/media/loader-white.c01a1e5a.svg",
     "static/media/loader.ffd8a4b2.svg": "/donation-app/static/media/loader.ffd8a4b2.svg",
-    "static/media/logo.272429e8.svg": "/donation-app/static/media/logo.272429e8.svg"
+    "static/media/logo.272429e8.svg": "/donation-app/static/media/logo.272429e8.svg",
+    "static/media/star.83cd4556.svg": "/donation-app/static/media/star.83cd4556.svg",
+    "static/media/twitter.61183ecb.svg": "/donation-app/static/media/twitter.61183ecb.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.95347318.js",
-    "static/js/2.45c88053.chunk.js",
-    "static/css/main.f5f4673e.chunk.css",
-    "static/js/main.0934163e.chunk.js"
+    "static/js/runtime-main.e48a0c11.js",
+    "static/js/2.d90ac4d5.chunk.js",
+    "static/css/main.159041f7.chunk.css",
+    "static/js/main.d0a6974d.chunk.js"
   ]
 }
