@@ -30,10 +30,10 @@ const DonateViaLink = observer(() => {
         setLoading(true);
         const allowance = await tokenContract.methods.allowance(address, distributorContract._address).call();
         if (wei <= allowance) {
-          console.log(+pathname.split('/')[3], 'id');
+          console.log(+pathname.split('/')[2], 'id');
           console.log(tokenContract._address, 'addr');
           console.log(wei, 'sum')
-          const hash = await distributorContract.methods.donateErc20(+pathname.split('/')[3], tokenContract._address, wei).send({ from: address })
+          const hash = await distributorContract.methods.donateErc20(+pathname.split('/')[2], tokenContract._address, wei).send({ from: address })
           await window.web3.eth.getTransaction(
             hash.transactionHash,
             async (error, trans) => {
