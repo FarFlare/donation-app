@@ -69,7 +69,7 @@ const DonateViaLink = observer(() => {
             <p className={s.title}>link</p>
           </div>
         </div>
-        <p className={s.link_orange}>{`donunk.io${pathname}`}</p>
+        <p className={s.link_orange}>{`${window.location.href}`}</p>
         {!chainStore.connected && <Button>Connect wallet</Button>}
         {chainStore.connected && !success && <div className={s.form_item}>
           <div className={s.input_label_container}>

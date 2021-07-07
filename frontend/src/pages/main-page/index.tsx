@@ -25,6 +25,7 @@ const MainPage = observer(() => {
   const onSubmit = async () => {
     try {
       setLoading(true);
+      console.log(address)
       const hash = await chainStore.distributorContract.methods.newLink(address).send({
         from: chainStore.address,
       });
@@ -33,7 +34,7 @@ const MainPage = observer(() => {
         hash.transactionHash,
         async (error, trans) => {
           const link = await chainStore.distributorContract.methods.getLink(address).call();
-          setDonationLink(link);
+          setDonationLink(`${window.location.href}/donate/${link}`);
           setLoading(false);
         }
       );
@@ -41,8 +42,18 @@ const MainPage = observer(() => {
       setLoading(false)
       console.log(error)
       alert(error.message);
+    } 
+  }
+
+  const onCopyClick = () => {
+    if (!navigator.clipboard) {
+      return;
     }
-    
+    navigator.clipboard.writeText(donationLink).then(function() {
+      console.log('Async: Copying to clipboard was successful!');
+    }, function(err) {
+      console.error('Async: Could not copy text: ', err);
+    });
   }
 
   return (
@@ -96,9 +107,9 @@ const MainPage = observer(() => {
             </p>
           </div>
           <div className={s.input_group}>
-            <Input name="link" value={donationLink} className={s.input} />
+            <Input name="link" value={donationLink} className={s.input}/>
             <button className={s.input_button}>
-              <img src={copy} alt="copy" />
+              <img src={copy} alt="copy" onClick={onCopyClick}/>
             </button>
           </div>
         </div>
