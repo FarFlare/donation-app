@@ -34,7 +34,7 @@ const MainPage = observer(() => {
         hash.transactionHash,
         async (error, trans) => {
           const link = await chainStore.distributorContract.methods.getLink(address).call();
-          setDonationLink(`${window.location.href}/donate/${link}`);
+          setDonationLink(`${window.location.href}donate/${link}`);
           setLoading(false);
         }
       );
