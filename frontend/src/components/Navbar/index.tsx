@@ -24,13 +24,13 @@ const Navbar = observer(() => {
 
   return (
     <nav className={s.root}>
-      <div className={s.logo_container} onClick={() => push('/donation-app')}>
+      <div className={s.logo_container} onClick={() => push('/')}>
         <img src={logo} alt="logo" />
         <p className={s.logo_text}>Donunk</p>
       </div>
       <div className={s.link_container}>
         <p className={s.link}>FAQ</p>
-        <p className={s.link} onClick={() => push('/donation-app/celeb')}>Donate to a star</p>
+        <p className={s.link} onClick={() => push('/celeb')}>Donate to a star</p>
         <Button onClick={onConnectClick}>
           {chainStore.web3Loading ? (
             <img src={loader} alt="loader" />

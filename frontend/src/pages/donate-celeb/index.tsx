@@ -131,7 +131,7 @@ const DonateToCeleb = observer(() => {
         {
           success && <>
             <p className={s.succes_text}>{`You have successfully donated ${sum} tokens`}</p>
-            <Button className={s.mb50} onClick={() => push('/donation-app')}>Make own donation link</Button>
+            <Button className={s.mb50} onClick={() => push('/')}>Make own donation link</Button>
           </>
         }
       </div>
